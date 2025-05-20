@@ -15,4 +15,4 @@ Il microservizio è responsabile della pianificazione e gestione della disponibi
 # Entità del database
 
 # API REST
-`orario_inizio`
+`Esempio`
