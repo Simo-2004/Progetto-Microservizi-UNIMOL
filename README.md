@@ -64,11 +64,40 @@ POST  /api/v1/rooms
 GET  /api/v1/rooms
 
 #Dettaglio di una singola aula
-GET  /api/v1/rooms/{id}
+GET  /api/v1/rooms/{ID_AULA}
 
-#Aggiorna dati aula (capienza, dotazioni, ecc.)
-PUT  /api/v1/rooms/{id}
+#Aggiorna dati aula (capienza, dotazioni ecc...)
+PUT  /api/v1/rooms/{ID_AULA}
 
-#Elimina un'aula (solo se non collegata a eventi attivi)
-DELETE  /api/v1/rooms/{id}
+#Elimina un'aula
+DELETE  /api/v1/rooms/{ID_AULA}
 </pre>
+
+**Pianificazione delle lezioni (Amministrativi (input disponibilità da Docenti))**
+<pre>
+#Crea una nuova lezione
+POST  /api/v1/lectures
+
+#Lista di tutte le lezioni
+GET  /api/v1/lectures
+
+#Singola lezione
+GET  /api/v1/lectures/{ID_LEZIONE}
+
+#Aggiorna dati lezione (Orario, aula ecc...)
+PUT  /api/v1/lectures/{ID_LEZIONE}
+
+#Elimina lezione
+DELETE  /api/v1/lectures/{ID_LEZIONE}
+
+#Lista lezioni per un corso
+GET  /api/v1/lectures/course/{ID_CORSO}
+
+#Lezioni in una specifica aula
+GET  /api/v1/lectures/room/{ID_AULA}
+
+#Lezioni di un docente (in questo caso ID_UTENTE si riferisce all'id del professore)
+GET  /api/v1/lectures/teacher/{ID_UTENTE}
+</pre>
+
+
