@@ -55,44 +55,44 @@ Tabelle individuate con i relativi attributi
   - `Ora_fine`
   - `Tipo` (ENUM: "Scritto", "Orale", "Altro")
 
-# Signature delle funzioni
+# Signature delle funzioni (In Java)
 **Gestione della disponibilità delle aule (Amministrativi)**
-<pre> 
+```java
 Room addRoom(Room newRoom); //newRoom = dati in input
-List<Room> getAllRooms();
 Room getRoomById(String roomId);
 Room updateRoom(String roomId, Room updatedRoom); //updatedRoom = dati in input
+List <Room> getAllRooms();
 void deleteRoom(String roomId);
-</pre>
+```
 
 **Pianificazione delle lezioni (Amministrativi (input disponibilità da Docenti))**
-<pre>
+```java
 Lecture addLecture(Lecture newLecture); //newLecture = dati in input
-List<Lecture> getAllLectures();
 Lecture getLectureById(String lectureId);
 Lecture updateLecture(String lectureId, Lecture updatedLecture); //updatedLecture = dati in input
 void deleteLecture(String lectureId);
-List<Lecture> getLecturesByCourseId(String courseId);
-List<Lecture> getLecturesByRoomId(String roomId);
-List<Lecture> getLecturesByTeacherId(String teacherId);
-</pre>
+List <Lecture> getAllLectures();
+List <Lecture> getLecturesByCourseId(String courseId);
+List <Lecture> getLecturesByRoomId(String roomId);
+List <Lecture> getLecturesByTeacherId(String teacherId);
+```
 
 **Preferenze orarie (Fornite a Amministrativi da Docenti)**
-<pre>
+```java
 Availability addTeacherAvailability(Availability availability); //availability = dati in input
 List<Availability> getTeacherAvailability(String teacherId);
 Availability updateTeacherAvailability(String availabilityId, Availability updatedAvailability); //updatedAvailability = dati in input
 void deleteTeacherAvailability(String availabilityId);
-</pre>
+```
 
 **Gestione conflitti (Amministrativi)**
-<pre>
+```java
 Conflict addConflict(Conflict newConflict);
 List<Conflict> getAllConflicts();
 Conflict getConflictById(String conflictId);
 List<Conflict> getConflictsByRoomId(String roomId);
 List<Conflict> getConflictsByTeacherId(String teacherId);
 Conflict resolveConflict(String conflictId, Conflict updatedConflict);
-</pre>
+```
 
 
