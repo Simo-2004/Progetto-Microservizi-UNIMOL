@@ -10,7 +10,7 @@ Il microservizio è responsabile della pianificazione e gestione della disponibi
 # Tecnologie utilizzate
 - **Documentazione**: Swagger
 - **Framework**: SpringBoot
-- **Database**: PostgreSQL
+- **Database**: MySQL
 - **Message Broker**: RabbitMQ
 
 # Entità del database
@@ -58,6 +58,8 @@ Tabelle individuate con i relativi attributi
 # Signature delle funzioni (In Java)
 **Gestione della disponibilità delle aule (Amministrativi)**
 ```java
+DA FARE
+REST (GET,POST ecc...) con il metodo java e ad esempio example/people
 Room addRoom(Room newRoom); //newRoom = dati in input
 Room getRoomById(String roomId);
 Room updateRoom(String roomId, Room updatedRoom); //updatedRoom = dati in input
