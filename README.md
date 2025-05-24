@@ -55,16 +55,84 @@ Tabelle individuate con i relativi attributi
   - `Ora_fine`
   - `Tipo` (ENUM: "Scritto", "Orale", "Altro")
 
-# Signature delle funzioni (In Java)
-**Gestione della disponibilità delle aule (Amministrativi)**
-```java
-DA FARE
-REST (GET,POST ecc...) con il metodo java e ad esempio example/people
-Room addRoom(Room newRoom); //newRoom = dati in input
-Room getRoomById(String roomId);
-Room updateRoom(String roomId, Room updatedRoom); //updatedRoom = dati in input
-List <Room> getAllRooms();
-void deleteRoom(String roomId);
+# API REST
+**Gestione delle aule (Amministrativi)**
+```bash
+CREAZIONE AULA
+POST  /api/rooms/create_room
+
+Input:
+{
+  idAula: string
+  nome: string
+  edificio: string
+  capienza: int
+  disponibile: boolean
+  dotazioni: string
+}
+
+Output:
+{
+  idAula: string
+}
+```
+```bash
+LISTA DI TUTTE LE AULE
+GET  /api/rooms/all
+
+Input:
+{
+  
+}
+
+Output:
+{
+  idAula: string
+  nome: string
+  edificio: string
+  capienza: int
+  disponibile: boolean
+  dotazioni: string
+}
+```
+
+```bash
+VISUALIZZAZIONE AULA PER ID
+GET  /api/rooms/find/{id}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  idAula: string
+  nome: string
+  edificio: string
+  capienza: int
+  disponibile: boolean
+  dotazioni: string
+}
+```
+
+```bash
+MODIFICA AULA PER ID
+PUT /api/rooms/update/{id}
+
+Input:
+{
+  nome: string
+  edificio: string
+  capienza: int
+  disponibile: boolean
+  dotazioni: string
+}
+
+Output:
+{
+  idAula: string
+}
 ```
 
 **Pianificazione delle lezioni (Amministrativi (input disponibilità da Docenti))**
