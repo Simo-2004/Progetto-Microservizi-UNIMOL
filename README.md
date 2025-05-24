@@ -117,7 +117,7 @@ Output:
 ```
 
 ```bash
-MODIFICA AULA PER ID
+MODIFICA AULA PER ID (Attenzione, cambiare il body in modo tale che non accetti l'id, perchè tanto non lo modifica)
 PUT /api/rooms/update/{id}
 
 Input:
