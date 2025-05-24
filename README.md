@@ -8,7 +8,7 @@ Il microservizio è responsabile della pianificazione e gestione della disponibi
 - (**Amministrativi**) Forniscono informazioni su aule e orari (creano il file con gli orari, date di esami ecc...)
 
 # Tecnologie utilizzate
-- **Documentazione**: Swagger
+- **Documentazione API**: Swagger
 - **Framework**: SpringBoot
 - **Database**: MySQL
 - **Message Broker**: RabbitMQ
@@ -16,14 +16,14 @@ Il microservizio è responsabile della pianificazione e gestione della disponibi
 # Entità del database
 Tabelle individuate con i relativi attributi
 - Utente (Amministrativo o docente)
-  - `ID_UTENTE` (Chiave primaria)
+  - `idUtente` (Chiave primaria)
   - `Nome`
   - `Cognome`
   - `Email`
   - `Ruolo` (ENUM: "Amministrativo", "Docente")
  
 - Aula
-  - `ID_AULA` (Chiave primaria)
+  - `idAula` (Chiave primaria)
   - `Nome`
   - `Edificio`
   - `Capienza`
@@ -31,25 +31,25 @@ Tabelle individuate con i relativi attributi
   - `Dotazioni` (Es. Computer, proiettori)
  
 - Corso
-  - `ID_CORSO` (Chiave primaria)
+  - `idCorso` (Chiave primaria)
   - `Nome`
   - `Codice`
-  - `ID_DOCENTE` (Chiave esterna per la tabella "Utente")
+  - `idDocente` (Chiave esterna per la tabella "Utente")
   - `Anno_accademico`
   - `Semestre`
  
 - Lezione
-  - `ID_LEZIONE` (Chiave primaria)
-  - `ID_CORSO` (Chiave esterna per la tabella "Corso")
-  - `ID_AULA` (chiave esterna per la tabella "Aula")
+  - `idLezione` (Chiave primaria)
+  - `idCorso` (Chiave esterna per la tabella "Corso")
+  - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
   - `Ora_fine`
  
 - Esame
-  - `ID_ESAME` (Chiave primaria)
-  - `ID_CORSO` (Chiave esterna per la tabella "Corso")
-  - `ID_AULA` (chiave esterna per la tabella "Aula")
+  - `idEsame` (Chiave primaria)
+  - `idCorso` (Chiave esterna per la tabella "Corso")
+  - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
   - `Ora_fine`
@@ -117,7 +117,7 @@ Output:
 ```
 
 ```bash
-MODIFICA AULA PER ID (Attenzione, cambiare il body in modo tale che non accetti l'id, perchè tanto non lo modifica)
+MODIFICA AULA PER ID
 PUT /api/rooms/update/{id}
 
 Input:
