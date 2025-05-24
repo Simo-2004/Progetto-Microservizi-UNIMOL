@@ -1,6 +1,7 @@
 package it.unimol.newunimol.service;
 
 import it.unimol.newunimol.model.Room;
+import it.unimol.newunimol.model.RoomPUT;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -15,21 +16,25 @@ public class RoomService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Room addRoom(Room room) {
+    public String addRoom(Room room) {
         entityManager.persist(room);
-        return room;
+        return room.getIdAula();
     }
 
-    public Room getRoomById(String id) {
-        return entityManager.find(Room.class, id);
+    public Room getRoomById(String idAula) {
+        return entityManager.find(Room.class, idAula);
     }
 
-    public Room updateRoom(String id, Room updatedRoom) {
-        Room existing = entityManager.find(Room.class, id);
+    public String updateRoom(String idAula, RoomPUT updatedRoom) {
+        Room existing = entityManager.find(Room.class, idAula);
         if (existing != null) {
-            existing.setName(updatedRoom.getName());
-            existing.setCapacity(updatedRoom.getCapacity());
-            return entityManager.merge(existing);
+            existing.setNome(updatedRoom.getNome());
+            existing.setEdificio(updatedRoom.getEdificio());
+            existing.setCapienza(updatedRoom.getCapienza());
+            existing.setDisponibile(updatedRoom.isDisponibile());
+            existing.setDotazioni(updatedRoom.getDotazioni());
+            entityManager.merge(existing);
+            return idAula;
         }
         return null;
     }
@@ -38,8 +43,8 @@ public class RoomService {
         return entityManager.createQuery("SELECT r FROM Room r", Room.class).getResultList();
     }
 
-    public void deleteRoom(String id) {
-        Room room = entityManager.find(Room.class, id);
+    public void deleteRoom(String idAula) {
+        Room room = entityManager.find(Room.class, idAula);
         if (room != null) {
             entityManager.remove(room);
         }

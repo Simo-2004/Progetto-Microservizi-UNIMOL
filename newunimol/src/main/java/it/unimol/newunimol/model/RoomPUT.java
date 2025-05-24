@@ -1,30 +1,13 @@
 package it.unimol.newunimol.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+public class RoomPUT {
 
-@Entity
-@Table(name = "rooms")
-public class Room {
-
-    @Id
-    private String idAula; //PK
 
     private String nome;
     private String edificio;
     private int capienza;
     private boolean disponibile;
     private String dotazioni; //per esempio Computer, Sedie ecc...
-
-    //Getters e Setters
-    public String getIdAula() {
-        return idAula;
-    }
-
-    public void setIdAula(String idAula) {
-        this.idAula = idAula;
-    }
 
     public String getNome() {
         return nome;

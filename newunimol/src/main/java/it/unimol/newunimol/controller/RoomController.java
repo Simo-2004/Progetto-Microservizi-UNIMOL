@@ -1,6 +1,7 @@
 package it.unimol.newunimol.controller;
 
 import it.unimol.newunimol.model.Room;
+import it.unimol.newunimol.model.RoomPUT;
 import it.unimol.newunimol.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,27 +15,32 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
-    @PostMapping
-    public Room addRoom(@RequestBody Room newRoom) { //il request body definisce il contenuto per la richiesta
+    // Creazione di una stanza
+    @PostMapping("/create_room")
+    public String addRoom(@RequestBody Room newRoom) {
         return roomService.addRoom(newRoom);
     }
 
-    @GetMapping("/{id}")
+    // Recupera una stanza per ID
+    @GetMapping("/find/{id}")
     public Room getRoomById(@PathVariable String id) {
         return roomService.getRoomById(id);
     }
 
-    @PutMapping("/{id}")
-    public Room updateRoom(@PathVariable String id, @RequestBody Room updatedRoom) {
+    // Aggiorna una stanza
+    @PutMapping("/update/{id}")
+    public String updateRoom(@PathVariable String id, @RequestBody RoomPUT updatedRoom) {
         return roomService.updateRoom(id, updatedRoom);
     }
 
-    @GetMapping
+    // Recupera tutte le stanze
+    @GetMapping("/all")
     public List<Room> getAllRooms() {
         return roomService.getAllRooms();
     }
 
-    @DeleteMapping("/{id}")
+    // Elimina una stanza
+    @DeleteMapping("/delete/{id}")
     public void deleteRoom(@PathVariable String id) {
         roomService.deleteRoom(id);
     }
