@@ -135,16 +135,19 @@ Output:
 }
 ```
 
-**Pianificazione delle lezioni (Amministrativi (input disponibilità da Docenti))**
+**Pianificazione delle lezioni e orari (Amministrativi (input disponibilità da Docenti))**
 ```java
 Lecture addLecture(Lecture newLecture); //newLecture = dati in input
 Lecture getLectureById(String lectureId);
 Lecture updateLecture(String lectureId, Lecture updatedLecture); //updatedLecture = dati in input
 void deleteLecture(String lectureId);
 List <Lecture> getAllLectures();
-List <Lecture> getLecturesByCourseId(String courseId);
-List <Lecture> getLecturesByRoomId(String roomId);
-List <Lecture> getLecturesByTeacherId(String teacherId);
+```
+
+**Pianificazioni sessione d'esame**
+```java
+Exam addExam(Exam exam);
+
 ```
 
 **Preferenze orarie (Fornite a Amministrativi da Docenti)**
