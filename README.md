@@ -151,11 +151,87 @@ Exam addExam(Exam exam);
 ```
 
 **Preferenze orarie (Fornite a Amministrativi da Docenti)**
-```java
-Availability addTeacherAvailability(Availability availability); //availability = dati in input
-List<Availability> getTeacherAvailability(String teacherId);
-Availability updateTeacherAvailability(String availabilityId, Availability updatedAvailability); //updatedAvailability = dati in input
-void deleteTeacherAvailability(String availabilityId);
+```bash
+CREAZIONE DISPONIBILITA'
+POST  /api/availability/create
+
+Input:
+{
+  "idUtente": "string",
+  "disponibile": boolean,
+  "data": "LocalDate", (formato = yyyy-MM-dd)
+  "ora_inizio": "LocalTime", (formato = HH:mm)
+  "ora_fine": "LocalTime" (formato = HH:mm)
+}
+
+Output:
+{
+  "idUtente": "string",
+  "disponibile": boolean,
+  "data": "LocalDate", (formato = yyyy-MM-dd)
+  "ora_inizio": "LocalTime", (formato = HH:mm)
+  "ora_fine": "LocalTime" (formato = HH:mm)
+}
+```
+```bash
+LISTA DI TUTTE LE DISPONIBILITA'
+GET  /api/availability/all
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idUtente": "string",
+  "disponibile": boolean,
+  "data": "LocalDate", (formato = yyyy-MM-dd)
+  "ora_inizio": "LocalTime", (formato = HH:mm)
+  "ora_fine": "LocalTime" (formato = HH:mm)
+}
+```
+
+```bash
+VISUALIZZAZIONE DISPONIBILITA' PER ID
+GET  /api/availability/find/{idUtente}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idUtente": "string",
+  "disponibile": boolean,
+  "data": "LocalDate", (formato = yyyy-MM-dd)
+  "ora_inizio": "LocalTime", (formato = HH:mm)
+  "ora_fine": "LocalTime" (formato = HH:mm)
+}
+```
+
+```bash
+MODIFICA DISPONIBILITA' PER ID
+PUT /api/availability/update/{idUtente}
+
+Input:
+{
+  "idUtente": "string", (Lo prendo in input ma non è modificabile)
+  "disponibile": boolean,
+  "data": "LocalDate", (formato = yyyy-MM-dd)
+  "ora_inizio": "LocalTime", (formato = HH:mm)
+  "ora_fine": "LocalTime" (formato = HH:mm)
+}
+
+Output:
+{
+  "idUtente": "string",
+  "disponibile": boolean,
+  "data": "LocalDate", (formato = yyyy-MM-dd)
+  "ora_inizio": "LocalTime", (formato = HH:mm)
+  "ora_fine": "LocalTime" (formato = HH:mm)
+}
 ```
 
 **Gestione conflitti (Amministrativi)**
