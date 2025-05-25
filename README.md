@@ -234,6 +234,25 @@ Output:
 }
 ```
 
+```bash
+ELIMINAZIONE DISPONIBILITÀ
+DELETE  /api/availability/delete/{idUtente}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idUtente": "string",
+  "disponibile": boolean,
+  "data": "LocalDate", (formato = yyyy-MM-dd)
+  "ora_inizio": "LocalTime", (formato = HH:mm)
+  "ora_fine": "LocalTime" (formato = HH:mm)
+}
+```
+
 **Gestione conflitti (Amministrativi)**
 ```java
 Conflict addConflict(Conflict newConflict);
