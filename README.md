@@ -152,7 +152,7 @@ Exam addExam(Exam exam);
 
 **Preferenze orarie (Fornite a Amministrativi da Docenti)**
 ```bash
-CREAZIONE DISPONIBILITA'
+CREAZIONE DISPONIBILITÀ
 POST  /api/availability/create
 
 Input:
@@ -174,7 +174,7 @@ Output:
 }
 ```
 ```bash
-LISTA DI TUTTE LE DISPONIBILITA'
+LISTA DI TUTTE LE DISPONIBILITÀ
 GET  /api/availability/all
 
 Input:
@@ -193,7 +193,7 @@ Output:
 ```
 
 ```bash
-VISUALIZZAZIONE DISPONIBILITA' PER ID
+VISUALIZZAZIONE DISPONIBILITÀ PER ID
 GET  /api/availability/find/{idUtente}
 
 Input:
@@ -212,7 +212,7 @@ Output:
 ```
 
 ```bash
-MODIFICA DISPONIBILITA' PER ID
+MODIFICA DISPONIBILITÀ PER ID
 PUT /api/availability/update/{idUtente}
 
 Input:
