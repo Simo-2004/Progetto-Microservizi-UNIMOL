@@ -24,26 +24,26 @@ public class RoomController {
     }
 
     // Recupera una stanza per ID
-    @GetMapping("/find/{id}")
+    @GetMapping("/find_room/{id}")
     public Room getRoomById(@PathVariable String id) {
         return roomService.getRoomById(id);
     }
 
     // Aggiorna una stanza
-    @PutMapping("/update/{id}")
+    @PutMapping("/update_room/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public String updateRoom(@PathVariable String id, @RequestBody RoomPUT updatedRoom) {
         return roomService.updateRoom(id, updatedRoom);
     }
 
     // Recupera tutte le stanze
-    @GetMapping("/all")
+    @GetMapping("/all_room")
     public List<Room> getAllRooms() {
         return roomService.getAllRooms();
     }
 
     // Elimina una stanza
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete_room/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteRoom(@PathVariable String id) {
         roomService.deleteRoom(id);

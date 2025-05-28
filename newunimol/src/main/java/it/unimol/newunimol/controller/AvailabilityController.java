@@ -18,28 +18,28 @@ public class AvailabilityController {
         this.availabilityService = availabilityService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all_availability")
     public List<Availability> getAllAvailabilities() {
         return availabilityService.getAllAvailabilities();
     }
 
-    @GetMapping("/find/{idUtente}")
+    @GetMapping("/find_availability/{idUtente}")
     public Availability getAvailabilityById(@PathVariable String idUtente) {
         return availabilityService.getAvailabilityById(idUtente)
                 .orElse(null);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create_availability")
     public Availability addAvailability(@RequestBody Availability availability) {
         return availabilityService.addAvailability(availability);
     }
 
-    @PutMapping("/update/{idUtente}")
+    @PutMapping("/update_availability/{idUtente}")
     public Availability updateAvailability(@PathVariable String idUtente, @RequestBody Availability updated) {
         return availabilityService.updateAvailability(idUtente, updated);
     }
 
-    @DeleteMapping("/delete/{idUtente}")
+    @DeleteMapping("/delete_availability/{idUtente}")
     public void deleteAvailability(@PathVariable String idUtente) {
         availabilityService.deleteAvailability(idUtente);
     }
