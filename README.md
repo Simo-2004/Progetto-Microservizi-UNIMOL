@@ -78,7 +78,7 @@ Output:
 ```
 ```bash
 LISTA DI TUTTE LE AULE
-GET  /api/rooms/all
+GET  /api/rooms/all_room
 
 Input:
 {
@@ -98,7 +98,7 @@ Output:
 
 ```bash
 VISUALIZZAZIONE AULA PER ID
-GET  /api/rooms/find/{id}
+GET  /api/rooms/find_room/{id}
 
 Input:
 {
@@ -118,7 +118,7 @@ Output:
 
 ```bash
 MODIFICA AULA PER ID
-PUT /api/rooms/update/{id}
+PUT /api/rooms/update_room/{id}
 
 Input:
 {
@@ -153,7 +153,7 @@ Exam addExam(Exam exam);
 **Preferenze orarie (Fornite a Amministrativi da Docenti)**
 ```bash
 CREAZIONE DISPONIBILITÀ
-POST  /api/availability/create
+POST  /api/availability/create_availability
 
 Input:
 {
@@ -175,7 +175,7 @@ Output:
 ```
 ```bash
 LISTA DI TUTTE LE DISPONIBILITÀ
-GET  /api/availability/all
+GET  /api/availability/all_availability
 
 Input:
 {
@@ -194,7 +194,7 @@ Output:
 
 ```bash
 VISUALIZZAZIONE DISPONIBILITÀ PER ID
-GET  /api/availability/find/{idUtente}
+GET  /api/availability/find_availability/{idUtente}
 
 Input:
 {
@@ -213,7 +213,7 @@ Output:
 
 ```bash
 MODIFICA DISPONIBILITÀ PER ID
-PUT /api/availability/update/{idUtente}
+PUT /api/availability/update_availability/{idUtente}
 
 Input:
 {
@@ -236,7 +236,7 @@ Output:
 
 ```bash
 ELIMINAZIONE DISPONIBILITÀ
-DELETE  /api/availability/delete/{idUtente}
+DELETE  /api/availability/delete_availability/{idUtente}
 
 Input:
 {
