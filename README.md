@@ -136,12 +136,109 @@ Output:
 ```
 
 **Pianificazione delle lezioni e orari (Amministrativi (input disponibilità da Docenti))**
-```java
-Lecture addLecture(Lecture newLecture); //newLecture = dati in input
-Lecture getLectureById(String lectureId);
-Lecture updateLecture(String lectureId, Lecture updatedLecture); //updatedLecture = dati in input
-void deleteLecture(String lectureId);
-List <Lecture> getAllLectures();
+```bash
+CREAZIONE LEZIONI
+POST  /api/lectures/create_lecture
+
+Input:
+{
+  "idLezione": "string",
+  "nomeLezione": "string",
+  "docenteId": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "oraInizio": "09:00",
+  "oraFine": "13:00"
+}
+
+Output:
+{
+  "idLezione": "string",
+  "nomeLezione": "string",
+  "docenteId": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "oraInizio": "09:00",
+  "oraFine": "13:00"
+}
+```
+
+```bash
+VISUALIZZAZIONE LEZIONE PER ID
+GET  /api/lectures/find_lecture/{id}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idLezione": "string",
+  "nomeLezione": "string",
+  "docenteId": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "oraInizio": "09:00",
+  "oraFine": "13:00"
+}
+```
+
+```bash
+LISTA DI TUTTE LE LEZIONI
+GET  /api/lectures/all_lectures
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idLezione": "string",
+  "nomeLezione": "string",
+  "docenteId": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "oraInizio": "09:00",
+  "oraFine": "13:00"
+}
+```
+
+```bash
+MODIFICA LEZIONI
+PUT  /api/lectures/update_lecture/{id}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idLezione": "string",
+  "nomeLezione": "string",
+  "docenteId": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "oraInizio": "09:00",
+  "oraFine": "13:00"
+}
+```
+
+```bash
+MODIFICA LEZIONI
+DELETE  /api/lectures/delete_lecture/{id}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  
+}
 ```
 
 **Pianificazioni sessione d'esame**
@@ -158,19 +255,23 @@ POST  /api/availability/create_availability
 Input:
 {
   "idUtente": "string",
-  "disponibile": boolean,
-  "data": "LocalDate", (formato = yyyy-MM-dd)
-  "ora_inizio": "LocalTime", (formato = HH:mm)
-  "ora_fine": "LocalTime" (formato = HH:mm)
+  "disponibile": true,
+  "nome_utente": "string",
+  "cognome_utente": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "13:00"
 }
 
 Output:
 {
   "idUtente": "string",
-  "disponibile": boolean,
-  "data": "LocalDate", (formato = yyyy-MM-dd)
-  "ora_inizio": "LocalTime", (formato = HH:mm)
-  "ora_fine": "LocalTime" (formato = HH:mm)
+  "disponibile": true,
+  "nome_utente": "string",
+  "cognome_utente": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "13:00"
 }
 ```
 ```bash
@@ -185,10 +286,12 @@ Input:
 Output:
 {
   "idUtente": "string",
-  "disponibile": boolean,
-  "data": "LocalDate", (formato = yyyy-MM-dd)
-  "ora_inizio": "LocalTime", (formato = HH:mm)
-  "ora_fine": "LocalTime" (formato = HH:mm)
+  "disponibile": true,
+  "nome_utente": "string",
+  "cognome_utente": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "13:00"
 }
 ```
 
@@ -204,10 +307,12 @@ Input:
 Output:
 {
   "idUtente": "string",
-  "disponibile": boolean,
-  "data": "LocalDate", (formato = yyyy-MM-dd)
-  "ora_inizio": "LocalTime", (formato = HH:mm)
-  "ora_fine": "LocalTime" (formato = HH:mm)
+  "disponibile": true,
+  "nome_utente": "string",
+  "cognome_utente": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "13:00"
 }
 ```
 
@@ -217,20 +322,24 @@ PUT /api/availability/update_availability/{idUtente}
 
 Input:
 {
-  "idUtente": "string", (Lo prendo in input ma non è modificabile)
-  "disponibile": boolean,
-  "data": "LocalDate", (formato = yyyy-MM-dd)
-  "ora_inizio": "LocalTime", (formato = HH:mm)
-  "ora_fine": "LocalTime" (formato = HH:mm)
+  "idUtente": "string",
+  "disponibile": true,
+  "nome_utente": "string",
+  "cognome_utente": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "13:00"
 }
 
 Output:
 {
   "idUtente": "string",
-  "disponibile": boolean,
-  "data": "LocalDate", (formato = yyyy-MM-dd)
-  "ora_inizio": "LocalTime", (formato = HH:mm)
-  "ora_fine": "LocalTime" (formato = HH:mm)
+  "disponibile": true,
+  "nome_utente": "string",
+  "cognome_utente": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "13:00"
 }
 ```
 
@@ -246,10 +355,12 @@ Input:
 Output:
 {
   "idUtente": "string",
-  "disponibile": boolean,
-  "data": "LocalDate", (formato = yyyy-MM-dd)
-  "ora_inizio": "LocalTime", (formato = HH:mm)
-  "ora_fine": "LocalTime" (formato = HH:mm)
+  "disponibile": true,
+  "nome_utente": "string",
+  "cognome_utente": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "13:00"
 }
 ```
 
