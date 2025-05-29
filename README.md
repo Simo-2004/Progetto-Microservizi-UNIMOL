@@ -2,8 +2,8 @@
 # Introduzione
 Il microservizio è responsabile della pianificazione e gestione della disponibilità delle aule e pianificazione degli orari. Inoltre vengono gestite le seguenti funzionalità:
 - (**Amministrativi**) Gestione della disponibilità delle aule
-- (**Amministrativi**) Pianificazione degli orari e delle lezioni
-- (**Amministrativi**) Pianificazione delle sessioni d’esame
+- (**Amministrativi**) Pianificazione degli orari e delle lezioni (input disponibilità da Docenti)
+- (**Amministrativi**) Pianificazione delle sessioni d’esame (input disponibilità da Docenti)
 - (**Amministrativi**) Gestione dei conflitti di orario
 - (**Amministrativi**) Forniscono informazioni su aule e orari (creano il file con gli orari, date di esami ecc...)
 
