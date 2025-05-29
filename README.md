@@ -359,7 +359,7 @@ Output:
 ```
 
 ```bash
-ELIMINAZIONE DISPONIBILITÀ
+ELIMINAZIONE DISPONIBILITÀ PER ID
 DELETE  /api/availability/delete_availability/{idUtente}
 
 Input:
