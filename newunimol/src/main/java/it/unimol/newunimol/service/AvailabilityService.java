@@ -1,47 +1,58 @@
 package it.unimol.newunimol.service;
 
 import it.unimol.newunimol.model.Availability;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AvailabilityService {
 
-    private final List<Availability> availabilities = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager entityManager;
 
+    // Recupera tutte le disponibilità
     public List<Availability> getAllAvailabilities() {
-        return new ArrayList<>(availabilities);
+        return entityManager.createQuery("SELECT a FROM Availability a", Availability.class)
+                .getResultList();
     }
 
+    // Recupera una disponibilità per idUtente
     public Optional<Availability> getAvailabilityById(String idUtente) {
-        return availabilities.stream()
-                .filter(a -> a.getIdUtente().equals(idUtente))
-                .findFirst();
+        Availability availability = entityManager.find(Availability.class, idUtente);
+        return availability != null ? Optional.of(availability) : Optional.empty();
     }
 
+    // Aggiunge una nuova disponibilità
     public Availability addAvailability(Availability availability) {
-        this.availabilities.add(availability);
+        entityManager.persist(availability);
         return availability;
     }
 
+    // Elimina una disponibilità
     public boolean deleteAvailability(String idUtente) {
-        return availabilities.removeIf(a -> a.getIdUtente().equals(idUtente));
+        return getAvailabilityById(idUtente).map(availability -> {
+            entityManager.remove(availability);
+            return true;
+        }).orElse(false);
     }
 
+    // Aggiorna una disponibilità
     public Availability updateAvailability(String idUtente, Availability updated) {
-        Optional<Availability> optional = getAvailabilityById(idUtente);
-        if (optional.isPresent()) {
-            Availability availability = optional.get();
-            availability.setDisponibile(updated.isDisponibile());
-            availability.setData(updated.getData());
-            availability.setOra_inizio(updated.getOra_inizio());
-            availability.setOra_fine(updated.getOra_fine());
-            // aggiorna anche nome_utente e cognome_utente se i getter/setter ci sono
-            return availability;
-        }
-        return null;
+        return getAvailabilityById(idUtente).map(existing -> {
+            existing.setDisponibile(updated.isDisponibile());
+            existing.setData(updated.getData());
+            existing.setOra_inizio(updated.getOra_inizio());
+            existing.setOra_fine(updated.getOra_fine());
+            existing.setNome_utente(updated.getNome_utente());
+            existing.setCognome_utente(updated.getCognome_utente());
+
+            return entityManager.merge(existing); // Salva le modifiche
+        }).orElse(null);
     }
 }

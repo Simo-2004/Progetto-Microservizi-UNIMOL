@@ -4,7 +4,6 @@ import it.unimol.newunimol.model.Room;
 import it.unimol.newunimol.model.RoomPUT;
 import it.unimol.newunimol.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class RoomController {
 
     // Creazione di una stanza
     @PostMapping("/create_room")
-    @PreAuthorize("hasRole('ADMIN')")
     public String addRoom(@RequestBody Room newRoom) {
         return roomService.addRoom(newRoom);
     }
@@ -31,7 +29,6 @@ public class RoomController {
 
     // Aggiorna una stanza
     @PutMapping("/update_room/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public String updateRoom(@PathVariable String id, @RequestBody RoomPUT updatedRoom) {
         return roomService.updateRoom(id, updatedRoom);
     }
@@ -44,7 +41,6 @@ public class RoomController {
 
     // Elimina una stanza
     @DeleteMapping("/delete_room/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteRoom(@PathVariable String id) {
         roomService.deleteRoom(id);
     }

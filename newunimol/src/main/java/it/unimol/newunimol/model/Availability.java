@@ -32,6 +32,10 @@ public class Availability {
     private LocalTime ora_fine;
 
     // Getter e Setter
+    public void setIdUtente(String idUtente) {
+        this.idUtente = idUtente;
+    }
+
     public String getIdUtente() {
         return idUtente;
     }
@@ -68,8 +72,20 @@ public class Availability {
         this.ora_fine = ora_fine;
     }
 
+    public String getNome_utente() {
+        return nome_utente;
+    }
 
+    public void setNome_utente(String nome_utente) {
+        this.nome_utente = nome_utente;
+    }
 
+    public String getCognome_utente() {
+        return cognome_utente;
+    }
 
+    public void setCognome_utente(String cognome_utente) {
+        this.cognome_utente = cognome_utente;
+    }
 
 }
