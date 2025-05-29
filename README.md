@@ -135,6 +135,21 @@ Output:
 }
 ```
 
+```bash
+ELIMINA AULA PER ID
+DELETE /api/rooms/delete_room/{id}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  
+}
+```
+
 **Pianificazione delle lezioni e orari (Amministrativi (input disponibilità da Docenti))**
 ```bash
 CREAZIONE LEZIONI
@@ -227,7 +242,7 @@ Output:
 ```
 
 ```bash
-MODIFICA LEZIONI
+ELIMINAZIONE LEZIONE
 DELETE  /api/lectures/delete_lecture/{id}
 
 Input:
