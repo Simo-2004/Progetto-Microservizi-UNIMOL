@@ -59,7 +59,7 @@ Tabelle individuate con i relativi attributi
 **Gestione delle aule (Amministrativi)**
 ```bash
 CREAZIONE AULA
-POST  /api/rooms/create_room
+POST  /api/v1/rooms/create_room
 
 Input:
 {
@@ -78,7 +78,7 @@ Output:
 ```
 ```bash
 LISTA DI TUTTE LE AULE
-GET  /api/rooms/all_room
+GET  /api/v1/rooms/all_room
 
 Input:
 {
@@ -98,7 +98,7 @@ Output:
 
 ```bash
 VISUALIZZAZIONE AULA PER ID
-GET  /api/rooms/find_room/{id}
+GET  /api/v1/rooms/find_room/{id}
 
 Input:
 {
@@ -118,7 +118,7 @@ Output:
 
 ```bash
 MODIFICA AULA PER ID
-PUT /api/rooms/update_room/{id}
+PUT /api/v1/rooms/update_room/{id}
 
 Input:
 {
@@ -137,7 +137,7 @@ Output:
 
 ```bash
 ELIMINA AULA PER ID
-DELETE /api/rooms/delete_room/{id}
+DELETE /api/v1/rooms/delete_room/{id}
 
 Input:
 {
@@ -153,7 +153,7 @@ Output:
 **Pianificazione delle lezioni e orari (Amministrativi (input disponibilità da Docenti))**
 ```bash
 CREAZIONE LEZIONI
-POST  /api/lectures/create_lecture
+POST  /api/v1/lectures/create_lecture
 
 Input:
 {
@@ -180,7 +180,7 @@ Output:
 
 ```bash
 VISUALIZZAZIONE LEZIONE PER ID
-GET  /api/lectures/find_lecture/{id}
+GET  /api/v1/lectures/find_lecture/{id}
 
 Input:
 {
@@ -201,7 +201,7 @@ Output:
 
 ```bash
 LISTA DI TUTTE LE LEZIONI
-GET  /api/lectures/all_lectures
+GET  /api/v1/lectures/all_lectures
 
 Input:
 {
@@ -222,7 +222,7 @@ Output:
 
 ```bash
 MODIFICA LEZIONI
-PUT  /api/lectures/update_lecture/{id}
+PUT  /api/v1/lectures/update_lecture/{id}
 
 Input:
 {
@@ -243,7 +243,7 @@ Output:
 
 ```bash
 ELIMINAZIONE LEZIONE
-DELETE  /api/lectures/delete_lecture/{id}
+DELETE  /api/v1/lectures/delete_lecture/{id}
 
 Input:
 {
@@ -265,7 +265,7 @@ Exam addExam(Exam exam);
 **Preferenze orarie (Fornite a Amministrativi da Docenti)**
 ```bash
 CREAZIONE DISPONIBILITÀ
-POST  /api/availability/create_availability
+POST  /api/v1/availability/create_availability
 
 Input:
 {
@@ -291,7 +291,7 @@ Output:
 ```
 ```bash
 LISTA DI TUTTE LE DISPONIBILITÀ
-GET  /api/availability/all_availability
+GET  /api/v1/availability/all_availability
 
 Input:
 {
@@ -312,7 +312,7 @@ Output:
 
 ```bash
 VISUALIZZAZIONE DISPONIBILITÀ PER ID
-GET  /api/availability/find_availability/{idUtente}
+GET  /api/v1/availability/find_availability/{idUtente}
 
 Input:
 {
@@ -333,7 +333,7 @@ Output:
 
 ```bash
 MODIFICA DISPONIBILITÀ PER ID
-PUT /api/availability/update_availability/{idUtente}
+PUT /api/v1/availability/update_availability/{idUtente}
 
 Input:
 {
@@ -360,7 +360,7 @@ Output:
 
 ```bash
 ELIMINAZIONE DISPONIBILITÀ PER ID
-DELETE  /api/availability/delete_availability/{idUtente}
+DELETE  /api/v1/availability/delete_availability/{idUtente}
 
 Input:
 {
