@@ -257,9 +257,115 @@ Output:
 ```
 
 **Pianificazioni sessione d'esame**
-```java
-Exam addExam(Exam exam);
+```bash
+CREAZIONE ESAME
+POST  /api/v1/exams/create_exam
 
+Input:
+{
+  "idEsame": "string",
+  "idDocente": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "11:00",
+  "tipo": "SCRITTO"
+}
+
+Output:
+{
+  "idEsame": "string",
+  "idDocente": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "11:00",
+  "tipo": "SCRITTO"
+}
+```
+
+```bash
+LISTA DI TUTTI GLI ESAMI
+GET  /api/v1/exams/all_exams
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idEsame": "string",
+  "idDocente": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "11:00",
+  "tipo": "SCRITTO"
+}
+```
+
+```bash
+VISUALIZZAZIONE ESAME PER ID
+GET  /api/v1/exams/find_exam/{id}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  "idEsame": "string",
+  "idDocente": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "11:00",
+  "tipo": "SCRITTO"
+}
+```
+
+```bash
+MODIFICA ESAME PER ID
+PUT  /api/v1/exams/update_exam/{id}
+
+Input:
+{
+  "idEsame": "string",
+  "idDocente": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "11:00",
+  "tipo": "SCRITTO"
+}
+
+Output:
+{
+  "idEsame": "string",
+  "idDocente": "string",
+  "idAula": "string",
+  "data": "2025-05-25",
+  "ora_inizio": "09:00",
+  "ora_fine": "11:00",
+  "tipo": "SCRITTO"
+}
+```
+
+```bash
+ELIMINA ESAME PER ID
+DELETE  /api/v1/exams/delete_exam/{id}
+
+Input:
+{
+  
+}
+
+Output:
+{
+  
+}
 ```
 
 **Preferenze orarie (Fornite a Amministrativi da Docenti)**
@@ -381,12 +487,7 @@ Output:
 
 **Gestione conflitti (Amministrativi)**
 ```java
-Conflict addConflict(Conflict newConflict);
-List<Conflict> getAllConflicts();
-Conflict getConflictById(String conflictId);
-List<Conflict> getConflictsByRoomId(String roomId);
-List<Conflict> getConflictsByTeacherId(String teacherId);
-Conflict resolveConflict(String conflictId, Conflict updatedConflict);
+
 ```
 
 
