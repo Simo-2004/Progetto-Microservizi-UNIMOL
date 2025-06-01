@@ -30,7 +30,7 @@ Tabelle individuate con i relativi attributi
   - `Disponibile` (Booleano)
   - `Dotazioni` (Es. Computer, proiettori)
  
-- Corso
+- Corso (Dovrei riceverlo da un altro microservizio?)
   - `idCorso` (Chiave primaria)
   - `Nome`
   - `Codice`
@@ -40,7 +40,7 @@ Tabelle individuate con i relativi attributi
  
 - Lezione
   - `idLezione` (Chiave primaria)
-  - `idCorso` (Chiave esterna per la tabella "Corso")
+  - `idCorso` (Chiave esterna per la tabella "Corso") //Input da altro microservizio?
   - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
@@ -48,7 +48,7 @@ Tabelle individuate con i relativi attributi
  
 - Esame
   - `idEsame` (Chiave primaria)
-  - `idCorso` (Chiave esterna per la tabella "Corso")
+  - `idCorso` (Chiave esterna per la tabella "Corso")  //Input da altro microservizio?
   - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
