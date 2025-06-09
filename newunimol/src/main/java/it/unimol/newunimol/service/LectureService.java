@@ -20,6 +20,9 @@ public class LectureService {
     @Autowired
     private AvailabilityService availabilityService; // Servizio per recuperare la disponibilità
 
+    @Autowired
+    private ConflictCheckerService conflictCheckerService;
+
     public Lecture addLecture(Lecture newLecture) {
         String docenteId = newLecture.getDocenteId();
 
@@ -30,6 +33,24 @@ public class LectureService {
         // Verifica se è disponibile
         if (!availability.isDisponibile()) {
             throw new RuntimeException("Il docente non è disponibile.");
+        }
+
+        // Controllo disponibilità docente
+        if (!conflictCheckerService.isTeacherAvailable(
+                newLecture.getDocenteId(),
+                newLecture.getData(),
+                newLecture.getOraInizio(),
+                newLecture.getOraFine())) {
+            throw new RuntimeException("Il docente ha un impegno in quell'orario.");
+        }
+
+        // Controllo disponibilità aula
+        if (!conflictCheckerService.isRoomAvailable(
+                newLecture.getIdAula(),
+                newLecture.getData(),
+                newLecture.getOraInizio(),
+                newLecture.getOraFine())) {
+            throw new RuntimeException("L'aula non è disponibile in quell'orario.");
         }
 
         // Verifica che la data coincida

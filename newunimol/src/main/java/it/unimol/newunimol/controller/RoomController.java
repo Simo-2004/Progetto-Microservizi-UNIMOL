@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/rooms")
+@RequestMapping("/api/v1/rooms")
 public class RoomController {
 
     @Autowired
@@ -44,4 +44,7 @@ public class RoomController {
     public void deleteRoom(@PathVariable String id) {
         roomService.deleteRoom(id);
     }
+
+
+
 }
