@@ -2,7 +2,11 @@ package it.unimol.newunimol.controller;
 
 import it.unimol.newunimol.model.Availability;
 import it.unimol.newunimol.service.AvailabilityService;
+import it.unimol.newunimol.service.TokenJWTService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,29 +22,98 @@ public class AvailabilityController {
         this.availabilityService = availabilityService;
     }
 
+    @Autowired
+    private TokenJWTService tokenJWTService;
+
     @GetMapping("/all_availability")
-    public List<Availability> getAllAvailabilities() {
-        return availabilityService.getAllAvailabilities();
+    public ResponseEntity<List<Availability>> getAllAvailabilities(HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(availabilityService.getAllAvailabilities());
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @GetMapping("/find_availability/{idUtente}")
-    public Availability getAvailabilityById(@PathVariable String idUtente) {
-        return availabilityService.getAvailabilityById(idUtente)
-                .orElse(null);
+    public ResponseEntity<Availability> getAvailabilityById(@PathVariable String idUtente, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(availabilityService.getAvailabilityById(idUtente)
+                    .orElse(null));
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PostMapping("/create_availability")
-    public Availability addAvailability(@RequestBody Availability availability) {
-        return availabilityService.addAvailability(availability);
+    public ResponseEntity<Availability> addAvailability(@RequestBody Availability availability, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(availabilityService.addAvailability(availability));
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PutMapping("/update_availability/{idUtente}")
-    public Availability updateAvailability(@PathVariable String idUtente, @RequestBody Availability updated) {
-        return availabilityService.updateAvailability(idUtente, updated);
+    public ResponseEntity<Availability> updateAvailability(@PathVariable String idUtente, @RequestBody Availability updated, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(availabilityService.updateAvailability(idUtente, updated));
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @DeleteMapping("/delete_availability/{idUtente}")
-    public void deleteAvailability(@PathVariable String idUtente) {
-        availabilityService.deleteAvailability(idUtente);
+    public ResponseEntity<?> deleteAvailability(@PathVariable String idUtente, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            availabilityService.deleteAvailability(idUtente);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }

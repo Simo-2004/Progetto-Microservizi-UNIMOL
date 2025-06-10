@@ -2,8 +2,12 @@ package it.unimol.newunimol.controller;
 
 import it.unimol.newunimol.model.Lecture;
 import it.unimol.newunimol.service.LectureService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import it.unimol.newunimol.service.TokenJWTService;
 
 import java.util.List;
 
@@ -14,28 +18,97 @@ public class LectureController {
     @Autowired
     private LectureService lectureService;
 
+    @Autowired
+    private TokenJWTService tokenJWTService;
+
     @PostMapping("/create_lecture")
-    public Lecture addLecture(@RequestBody Lecture newLecture) {
-        return lectureService.addLecture(newLecture);
+    public ResponseEntity<Lecture> addLecture(@RequestBody Lecture newLecture, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(lectureService.addLecture(newLecture));
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @GetMapping("/find_lecture/{id}")
-    public Lecture getLectureById(@PathVariable String id) {
-        return lectureService.getLectureById(id);
+    public ResponseEntity<Lecture> getLectureById(@PathVariable String id, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(lectureService.getLectureById(id));
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PutMapping("/update_lecture/{id}")
-    public Lecture updateLecture(@PathVariable String id, @RequestBody Lecture updatedLecture) {
-        return lectureService.updateLecture(id, updatedLecture);
+    public ResponseEntity<Lecture> updateLecture(@PathVariable String id, @RequestBody Lecture updatedLecture, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(lectureService.updateLecture(id, updatedLecture));
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @DeleteMapping("/delete_lecture/{id}")
-    public void deleteLecture(@PathVariable String id) {
-        lectureService.deleteLecture(id);
+    public ResponseEntity<?> deleteLecture(@PathVariable String id, HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            lectureService.deleteLecture(id);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @GetMapping("/all_lectures")
-    public List<Lecture> getAllLectures() {
-        return lectureService.getAllLectures();
+    public ResponseEntity<List<Lecture>> getAllLectures(HttpServletRequest request) {
+
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+        String role = tokenJWTService.extractRole(token);
+
+        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            return ResponseEntity.ok(lectureService.getAllLectures());
+        }
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }
