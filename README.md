@@ -1,11 +1,11 @@
 # Microservizio Pianificazione orale e aule
 # Introduzione
-Il microservizio è responsabile della pianificazione e gestione della disponibilità delle aule e pianificazione degli orari. Inoltre vengono gestite le seguenti funzionalità:
+Il microservizio è responsabile della pianificazione e gestione della disponibilità delle aule e pianificazione degli orari di esami e lezioni. Inoltre vengono gestite le seguenti funzionalità:
 - (**Amministrativi**) Gestione della disponibilità delle aule
 - (**Amministrativi**) Pianificazione degli orari e delle lezioni (input disponibilità da Docenti)
 - (**Amministrativi**) Pianificazione delle sessioni d’esame (input disponibilità da Docenti)
 - (**Amministrativi**) Gestione dei conflitti di orario
-- (**Amministrativi**) Forniscono informazioni su aule e orari (creano il file con gli orari, date di esami ecc...)
+- (**Amministrativi**) Forniscono informazioni su aule e orari (orari, date di esami ecc...)
 
 # Tecnologie utilizzate
 - **Documentazione API**: Swagger
@@ -20,7 +20,7 @@ Tabelle individuate con i relativi attributi
   - `Nome`
   - `Cognome`
   - `Email`
-  - `Ruolo` (ENUM: "Amministrativo", "Docente")
+  - `Ruolo` (ENUM: "ADMIN", "USER")
  
 - Aula
   - `idAula` (Chiave primaria)
@@ -32,7 +32,7 @@ Tabelle individuate con i relativi attributi
  
 - Lezione
   - `idLezione` (Chiave primaria)
-  - `idCorso` (Chiave esterna per la tabella "Corso") //Input da altro microservizio?
+  - `idCorso` (Chiave esterna)
   - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
@@ -40,7 +40,7 @@ Tabelle individuate con i relativi attributi
  
 - Esame
   - `idEsame` (Chiave primaria)
-  - `idCorso` (Chiave esterna per la tabella "Corso")  //Input da altro microservizio?
+  - `idCorso` (Chiave esterna)
   - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
@@ -475,11 +475,6 @@ Output:
   "ora_inizio": "09:00",
   "ora_fine": "13:00"
 }
-```
-
-**Gestione conflitti (Amministrativi)**
-```java
-
 ```
 
 
