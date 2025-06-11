@@ -30,14 +30,6 @@ Tabelle individuate con i relativi attributi
   - `Disponibile` (Booleano)
   - `Dotazioni` (Es. Computer, proiettori)
  
-- Corso (Dovrei riceverlo da un altro microservizio?)
-  - `idCorso` (Chiave primaria)
-  - `Nome`
-  - `Codice`
-  - `idDocente` (Chiave esterna per la tabella "Utente")
-  - `Anno_accademico`
-  - `Semestre`
- 
 - Lezione
   - `idLezione` (Chiave primaria)
   - `idCorso` (Chiave esterna per la tabella "Corso") //Input da altro microservizio?
