@@ -32,7 +32,6 @@ Tabelle individuate con i relativi attributi
  
 - Lezione
   - `idLezione` (Chiave primaria)
-  - `idCorso` (Chiave esterna)
   - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
@@ -40,12 +39,11 @@ Tabelle individuate con i relativi attributi
  
 - Esame
   - `idEsame` (Chiave primaria)
-  - `idCorso` (Chiave esterna)
   - `idAula` (chiave esterna per la tabella "Aula")
   - `Data`
   - `Ora_inizio`
   - `Ora_fine`
-  - `Tipo` (ENUM: "Scritto", "Orale", "Altro")
+  - `Tipo` ("Scritto", "Orale", "Altro")
 
 # API REST
 **Gestione delle aule (Amministrativi)**
@@ -138,7 +136,7 @@ Input:
 
 Output:
 {
-  
+  Status code 200
 }
 ```
 
@@ -244,7 +242,7 @@ Input:
 
 Output:
 {
-  
+  Status code 200
 }
 ```
 
@@ -356,7 +354,7 @@ Input:
 
 Output:
 {
-  
+  Status code 200
 }
 ```
 
@@ -467,13 +465,7 @@ Input:
 
 Output:
 {
-  "idUtente": "string",
-  "disponibile": true,
-  "nome_utente": "string",
-  "cognome_utente": "string",
-  "data": "2025-05-25",
-  "ora_inizio": "09:00",
-  "ora_fine": "13:00"
+  Status code 200
 }
 ```
 
