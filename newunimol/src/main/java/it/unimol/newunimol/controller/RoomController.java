@@ -1,5 +1,6 @@
 package it.unimol.newunimol.controller;
 
+import it.unimol.newunimol.RabbitMQ.MessageService;
 import it.unimol.newunimol.model.Room;
 import it.unimol.newunimol.model.RoomPUT;
 import it.unimol.newunimol.service.RoomService;
@@ -15,6 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/rooms")
 public class RoomController {
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private RoomService roomService;
@@ -35,6 +39,7 @@ public class RoomController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishRoomCreated(newRoom);
             return ResponseEntity.ok(roomService.addRoom(newRoom));
         }
 
