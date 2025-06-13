@@ -4,7 +4,6 @@ package it.unimol.newunimol.controller;
 import it.unimol.newunimol.model.LoginRequest;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,7 @@ public class AuthController {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    @PostMapping("/api/token/generate")
+    @PostMapping("/api/v1/token/generate")
     public ResponseEntity<Map<String, String>> generateToken(@RequestBody LoginRequest loginRequest) {
         try {
             // Decodifica della chiave privata

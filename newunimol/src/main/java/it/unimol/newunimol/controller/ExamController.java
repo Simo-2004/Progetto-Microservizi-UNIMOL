@@ -40,21 +40,18 @@ public class ExamController {
     }
 
     @GetMapping("/find_exam/{id}")
-    public ResponseEntity<Exam> getExamById(@PathVariable String id, HttpServletRequest request) {
+    public ResponseEntity<Exam> getExamById(@PathVariable String id) {
 
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if(examService.getExamById(id) == null)
+        {
+            return ResponseEntity.notFound().build();
         }
-
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+        else
+        {
             return ResponseEntity.ok(examService.getExamById(id));
         }
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
     }
 
     @PutMapping("/update_exam/{id}")
@@ -95,20 +92,7 @@ public class ExamController {
     }
 
     @GetMapping("/all_exams")
-    public ResponseEntity<List<Exam>> getAllExams(HttpServletRequest request) {
-
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+    public ResponseEntity<List<Exam>> getAllExams() {
             return ResponseEntity.ok(examService.getAllExams());
-        }
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }

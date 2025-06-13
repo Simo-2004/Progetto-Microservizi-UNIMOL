@@ -40,21 +40,18 @@ public class LectureController {
     }
 
     @GetMapping("/find_lecture/{id}")
-    public ResponseEntity<Lecture> getLectureById(@PathVariable String id, HttpServletRequest request) {
+    public ResponseEntity<Lecture> getLectureById(@PathVariable String id) {
 
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if(lectureService.getLectureById(id) == null)
+        {
+            return ResponseEntity.notFound().build();
         }
-
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+        else
+        {
             return ResponseEntity.ok(lectureService.getLectureById(id));
         }
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
     }
 
     @PutMapping("/update_lecture/{id}")
@@ -95,20 +92,7 @@ public class LectureController {
     }
 
     @GetMapping("/all_lectures")
-    public ResponseEntity<List<Lecture>> getAllLectures(HttpServletRequest request) {
-
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
-            return ResponseEntity.ok(lectureService.getAllLectures());
-        }
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    public ResponseEntity<List<Lecture>> getAllLectures() {
+        return ResponseEntity.ok(lectureService.getAllLectures());
     }
 }

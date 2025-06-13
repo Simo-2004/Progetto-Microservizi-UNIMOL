@@ -7,6 +7,15 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
+/**
+ * Configurazione per aggiungere alla curl di swagger le informazioni sull'autenticazione.
+ * In alto a destra su swagger si trova il pulsante "Authorize".
+ * Selezionando il campo di testo si può inserire il token, basta solo il valore senza "Bearer"
+ * In automatico, swagger invierà le richieste con il token nel campo "Authorization".
+ * Il formato di questa richiesta sarà Authorization: Bearer <token>
+ */
+
+
 @Configuration
 public class OpenApiConfig {
 

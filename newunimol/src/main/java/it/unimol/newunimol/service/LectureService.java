@@ -10,6 +10,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Servizio per la gestione delle lezioni (Lecture) nel sistema.
+ * Fornisce funzionalità di creazione, lettura, aggiornamento e cancellazione (CRUD),
+ * con validazioni avanzate per garantire che:
+ * - Il docente sia disponibile nella data/ora richiesta,
+ * - L'aula sia libera nello stesso orario,
+ * - Non vi siano conflitti con altri impegni (lezioni o esami).
+ * Utilizza JPA per l'accesso al database e si appoggia a servizi ausiliari come:
+ * - {@link AvailabilityService} per verificare la disponibilità del docente,
+ * - {@link ConflictCheckerService} per controllare eventuali sovrapposizioni.
+ */
+
 @Service
 @Transactional
 public class LectureService {
@@ -23,6 +35,16 @@ public class LectureService {
     @Autowired
     private ConflictCheckerService conflictCheckerService;
 
+    /**
+     * Aggiunge una nuova lezione dopo aver effettuato tutte le verifiche necessarie:
+     * - Disponibilità del docente,
+     * - Disponibilità dell’aula,
+     * - Assenza di conflitti con altri impegni (lezioni/esami).
+     *
+     * @param newLecture La lezione da inserire.
+     * @return La lezione appena creata.
+     * @throws RuntimeException se una delle verifiche fallisce.
+     */
     public Lecture addLecture(Lecture newLecture) {
         String docenteId = newLecture.getDocenteId();
 
@@ -69,10 +91,25 @@ public class LectureService {
         return newLecture;
     }
 
+    /**
+     * Recupera una lezione in base al suo identificatore univoco.
+     *
+     * @param id Identificatore della lezione.
+     * @return L'oggetto Lecture corrispondente, o null se non trovato.
+     */
     public Lecture getLectureById(String id) {
         return entityManager.find(Lecture.class, id);
     }
 
+    /**
+     * Aggiorna una lezione esistente con i nuovi dati forniti,
+     * previa verifica della disponibilità del docente e dell’aula.
+     *
+     * @param id Identificatore della lezione da aggiornare.
+     * @param updatedLecture Oggetto contenente i nuovi dati.
+     * @return La lezione aggiornata, o null se non esiste.
+     * @throws RuntimeException se una delle verifiche fallisce.
+     */
     public Lecture updateLecture(String id, Lecture updatedLecture) {
         // 1. Cerca la lezione esistente
         Lecture existing = getLectureById(id);
@@ -114,6 +151,11 @@ public class LectureService {
         return existing;
     }
 
+    /**
+     * Elimina una lezione dal sistema.
+     *
+     * @param id Identificatore della lezione da eliminare.
+     */
     public void deleteLecture(String id) {
         Lecture lecture = getLectureById(id);
         if (lecture != null) {
@@ -121,6 +163,11 @@ public class LectureService {
         }
     }
 
+    /**
+     * Recupera tutte le lezioni presenti nel database.
+     *
+     * @return Lista di oggetti Lecture.
+     */
     public List<Lecture> getAllLectures() {
         return entityManager.createQuery("SELECT l FROM Lecture l", Lecture.class).getResultList();
     }

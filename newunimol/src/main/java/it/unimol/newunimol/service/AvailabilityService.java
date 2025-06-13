@@ -16,25 +16,47 @@ public class AvailabilityService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    // Recupera tutte le disponibilità
+    /**
+     * Recupera tutte le disponibilità da tutti i docenti
+     *
+     * @return Una lista di disponibilità
+     */
     public List<Availability> getAllAvailabilities() {
         return entityManager.createQuery("SELECT a FROM Availability a", Availability.class)
                 .getResultList();
     }
 
-    // Recupera una disponibilità per idUtente
+    /**
+     * Cerca e restituisce l'oggetto Availability associato all'id dell'utente specificato.
+     *
+     * @param idUtente L'identificatore univoco dell'utente di cui si vuole recuperare la disponibilità.
+     * @return Un oggetto Optional contenente la disponibilità trovata se esistente.
+     * Altrimenti, restituisce un oggetto Optional vuoto.
+     */
     public Optional<Availability> getAvailabilityById(String idUtente) {
         Availability availability = entityManager.find(Availability.class, idUtente);
         return availability != null ? Optional.of(availability) : Optional.empty();
     }
 
-    // Aggiunge una nuova disponibilità
+    /**
+     * Aggiunge una nuova disponibilità nel database.
+     *
+     * @param availability L'oggetto Availability da salvare.
+     * @return L'oggetto Availability appena salvato.
+     */
     public Availability addAvailability(Availability availability) {
         entityManager.persist(availability);
         return availability;
     }
 
-    // Elimina una disponibilità
+    /**
+     * Elimina una disponibilità esistente in base all'id dell'utente.
+     *
+     * @param idUtente L'identificatore univoco dell'utente di cui si vuole eliminare la disponibilità.
+     * @return
+     * true se la disponibilità è stata trovata ed eliminata.
+     * false altrimenti.
+     */
     public boolean deleteAvailability(String idUtente) {
         return getAvailabilityById(idUtente).map(availability -> {
             entityManager.remove(availability);
@@ -42,7 +64,14 @@ public class AvailabilityService {
         }).orElse(false);
     }
 
-    // Aggiorna una disponibilità
+    /**
+     * Aggiorna una disponibilità esistente con nuovi dati.
+     *
+     * @param idUtente L'identificatore univoco dell'utente di cui aggiornare la disponibilità.
+     * @param updated L'oggetto Availability contenente i nuovi dati.
+     * @return L'oggetto Availability aggiornato, se esiste.
+     * Altrimenti null.
+     */
     public Availability updateAvailability(String idUtente, Availability updated) {
         return getAvailabilityById(idUtente).map(existing -> {
             existing.setDisponibile(updated.isDisponibile());

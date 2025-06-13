@@ -1,9 +1,10 @@
 package it.unimol.newunimol.controller;
 
 import it.unimol.newunimol.service.TokenJWTService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -18,15 +19,20 @@ public class UserController {
         this.tokenJWTService = tokenJWTService;
     }
 
-    @GetMapping("/api/auth/me")
+    @GetMapping("/api/v1/auth/me")
     public ResponseEntity<Map<String, Object>> getUserInfo(
-            @RequestHeader("Authorization") String authHeader) {
+            HttpServletRequest request) {
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (request == null) {
             return ResponseEntity.status(401).body(Map.of("error", "Token non fornito"));
         }
 
-        String token = authHeader.substring(7); // Rimuove "Bearer "
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.replace("Bearer ", ""); //rimuove bearer
         Map<String, Object> response = new HashMap<>();
 
         try {

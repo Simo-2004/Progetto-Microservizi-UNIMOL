@@ -26,40 +26,22 @@ public class AvailabilityController {
     private TokenJWTService tokenJWTService;
 
     @GetMapping("/all_availability")
-    public ResponseEntity<List<Availability>> getAllAvailabilities(HttpServletRequest request) {
-
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
-            return ResponseEntity.ok(availabilityService.getAllAvailabilities());
-        }
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    public ResponseEntity<List<Availability>> getAllAvailabilities() {
+        return ResponseEntity.ok(availabilityService.getAllAvailabilities());
     }
 
     @GetMapping("/find_availability/{idUtente}")
-    public ResponseEntity<Availability> getAvailabilityById(@PathVariable String idUtente, HttpServletRequest request) {
+    public ResponseEntity<Availability> getAvailabilityById(@PathVariable String idUtente) {
 
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if(availabilityService.getAvailabilityById(idUtente).orElse(null) == null)
+        {
+            return ResponseEntity.notFound().build();
+        }
+        else
+        {
+            return ResponseEntity.ok(availabilityService.getAvailabilityById(idUtente).orElse(null));
         }
 
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
-            return ResponseEntity.ok(availabilityService.getAvailabilityById(idUtente)
-                    .orElse(null));
-        }
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PostMapping("/create_availability")

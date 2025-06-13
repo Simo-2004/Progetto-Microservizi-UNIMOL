@@ -43,21 +43,16 @@ public class RoomController {
 
     // Recupera una stanza per ID
     @GetMapping("/find_room/{id}")
-    public ResponseEntity<Room> getRoomById(@PathVariable String id, HttpServletRequest request) {
-
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<Room> getRoomById(@PathVariable String id) {
+        if(roomService.getRoomById(id) == null)
+        {
+            return ResponseEntity.notFound().build();
         }
-
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+        else
+        {
             return ResponseEntity.ok(roomService.getRoomById(id));
         }
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
 
@@ -82,21 +77,8 @@ public class RoomController {
 
     // Recupera tutte le stanze
     @GetMapping("/all_room")
-    public ResponseEntity<List<Room>> getAllRooms(HttpServletRequest request) {
-
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        String token = authHeader.replace("Bearer ", "");
-        String role = tokenJWTService.extractRole(token);
-
-        if("ADMIN".equals(role) || "SADMIN".equals(role)) {
-            return ResponseEntity.ok(roomService.getAllRooms());
-        }
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    public ResponseEntity<List<Room>> getAllRooms() {
+        return ResponseEntity.ok(roomService.getAllRooms());
     }
 
     // Elimina una stanza
