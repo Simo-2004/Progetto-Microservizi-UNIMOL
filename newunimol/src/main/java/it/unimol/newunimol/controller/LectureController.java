@@ -1,5 +1,6 @@
 package it.unimol.newunimol.controller;
 
+import it.unimol.newunimol.RabbitMQ.MessageService;
 import it.unimol.newunimol.model.Lecture;
 import it.unimol.newunimol.service.LectureService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/lectures")
 public class LectureController {
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private LectureService lectureService;
@@ -33,6 +37,7 @@ public class LectureController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishLectureCreated(newLecture);
             return ResponseEntity.ok(lectureService.addLecture(newLecture));
         }
 
@@ -66,6 +71,7 @@ public class LectureController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishLectureUpdated(updatedLecture);
             return ResponseEntity.ok(lectureService.updateLecture(id, updatedLecture));
         }
 
@@ -84,6 +90,7 @@ public class LectureController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishLectureDeleted(id);
             lectureService.deleteLecture(id);
             return ResponseEntity.ok().build();
         }

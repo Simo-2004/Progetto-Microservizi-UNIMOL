@@ -2,7 +2,6 @@ package it.unimol.newunimol.controller;
 
 import it.unimol.newunimol.RabbitMQ.MessageService;
 import it.unimol.newunimol.model.Room;
-import it.unimol.newunimol.model.RoomPUT;
 import it.unimol.newunimol.service.RoomService;
 import it.unimol.newunimol.service.TokenJWTService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -63,7 +62,7 @@ public class RoomController {
 
     // Aggiorna una stanza
     @PutMapping("/update_room/{id}")
-    public ResponseEntity<String> updateRoom(@PathVariable String id, @RequestBody RoomPUT updatedRoom, HttpServletRequest request) {
+    public ResponseEntity<String> updateRoom(@PathVariable String id, @RequestBody Room updatedRoom, HttpServletRequest request) {
 
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -74,6 +73,7 @@ public class RoomController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishRoomUpdated(updatedRoom);
             return ResponseEntity.ok(roomService.updateRoom(id, updatedRoom));
         }
 
@@ -100,6 +100,7 @@ public class RoomController {
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
             roomService.deleteRoom(id);
+            messageService.publishRoomDeleted(id);
             return ResponseEntity.ok().build();
         }
 

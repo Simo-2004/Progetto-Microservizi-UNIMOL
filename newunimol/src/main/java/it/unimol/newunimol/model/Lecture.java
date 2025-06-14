@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Table(name = "lectures")
 public class Lecture {
     @Id
-    private String idLezione; // UUID o formato personalizzato
+    private String idLezione; // ID
 
     private String nomeLezione;
     private String docenteId; // Riferimento all'ID del docente (es. idUtente da Availability)
@@ -28,7 +28,7 @@ public class Lecture {
     @Schema(type = "string", format = "time", example = "13:00")
     private LocalTime oraFine;
 
-    // Getters and Setters
+    //getter e setter
     public String getIdLezione() {
         return idLezione;
     }

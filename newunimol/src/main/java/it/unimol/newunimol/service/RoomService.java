@@ -1,7 +1,6 @@
 package it.unimol.newunimol.service;
 
 import it.unimol.newunimol.model.Room;
-import it.unimol.newunimol.model.RoomPUT;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -50,7 +49,7 @@ public class RoomService {
      * @param updatedRoom Oggetto contenente i nuovi dati dell'aula.
      * @return L'identificatore dell'aula aggiornata, o null se non esiste.
      */
-    public String updateRoom(String idAula, RoomPUT updatedRoom) {
+    public String updateRoom(String idAula, Room updatedRoom) {
         Room existing = entityManager.find(Room.class, idAula);
         if (existing != null) {
             existing.setNome(updatedRoom.getNome());

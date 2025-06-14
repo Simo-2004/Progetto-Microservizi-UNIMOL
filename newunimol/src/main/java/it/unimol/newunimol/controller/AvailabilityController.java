@@ -1,5 +1,6 @@
 package it.unimol.newunimol.controller;
 
+import it.unimol.newunimol.RabbitMQ.MessageService;
 import it.unimol.newunimol.model.Availability;
 import it.unimol.newunimol.service.AvailabilityService;
 import it.unimol.newunimol.service.TokenJWTService;
@@ -14,6 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/availability")
 public class AvailabilityController {
+
+    @Autowired
+    private MessageService messageService;
 
     private final AvailabilityService availabilityService;
 
@@ -56,6 +60,7 @@ public class AvailabilityController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishAvailabilityCreated(availability);
             return ResponseEntity.ok(availabilityService.addAvailability(availability));
         }
 
@@ -74,6 +79,7 @@ public class AvailabilityController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishAvailabilityUpdated(updated);
             return ResponseEntity.ok(availabilityService.updateAvailability(idUtente, updated));
         }
 
@@ -92,6 +98,7 @@ public class AvailabilityController {
         String role = tokenJWTService.extractRole(token);
 
         if("ADMIN".equals(role) || "SADMIN".equals(role)) {
+            messageService.publishAvailabilityDeleted(idUtente);
             availabilityService.deleteAvailability(idUtente);
             return ResponseEntity.ok().build();
         }
